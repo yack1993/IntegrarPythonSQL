@@ -1,6 +1,5 @@
 #pip install pyodbc
 import pyodbc
-from datetime import datetime
 
 dados_conexao = (
     "Driver={SQL Server};"
@@ -8,33 +7,22 @@ dados_conexao = (
     "Database=PythonSQL"
 )
 
+# criano uma conexão
 conexao = pyodbc.connect(dados_conexao)
 
 print("Conexão feita com sucesso!")
 
+#Criando um cursor
 cursor = conexao.cursor()
 
-#data_atual = datetime.today()
-#data_em_texto = '{}/{}/{}'.format(data_atual.day, data_atual.month, data_atual.year)
-
-cliente = "Edu"
-produto = "óculos"
-#data = data_em_texto
-preco = "300"
-quantidade = 1
-
-'''
-comando = """
-INSERT INTO tblVendas(Cliente, Produto, Data_Venda, Preco, Quantidade)
-VALUES('Alice', 'Tablet', GETDATE(), 800, 2)
-"""
-'''
-
-comando = f"""
-INSERT INTO tblVendas(Cliente, Produto, Data_Venda, Preco, Quantidade)
-VALUES('{cliente}', '{produto}', GETDATE(), {preco}, {quantidade})
-"""
+def insert():
+    comando = """
+        INSERT INTO tblVendas(Cliente, Produto, Data_Venda, Preco, Quantidade)
+        VALUES('Teste', 'Tablet', GETDATE(), 500, 2)
+        """
+    cursor.execute(comando)
+    cursor.commit()
+    cursor.close()
 
 
-cursor.execute(comando)
-cursor.commit()
+insert()
